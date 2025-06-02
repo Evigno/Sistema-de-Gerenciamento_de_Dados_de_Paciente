@@ -1,8 +1,8 @@
 # HealthSys - Sistema de Gerenciamento de Dados de Pacientes (Parte I)
 
 ## Descrição
-A execução deste trabalho consiste na implementação - de preferência com sucesso - da primeira parte de um sistema simplificado de gerenciamento de dados de pacientes para uma clínica, desenvolvido na linguagem C.
-Nesta primeita parte, focamos nas funcionalidades de consulta e listagem de registros dos pacientes, os quais os dados são persistidos em um arquivo texto CSV e carregados em um vetor estático em meória para a execução do sistema.
+A execução deste trabalho consiste na implementação - com sucesso, de preferência - da primeira parte de um sistema simplificado de gerenciamento de dados de pacientes para uma clínica, desenvolvido na linguagem C.
+Nesta primeita parte, focamos nas funcionalidades de consulta e listagem de registros dos pacientes - que eram as exigidas até então -, os quais os dados são persistidos em um arquivo texto CSV e carregados em um vetor estático em meória para a execução do sistema.
 
 **Disciplina:** Estrutura de Dados
 
@@ -33,35 +33,36 @@ Nesta primeita parte, focamos nas funcionalidades de consulta e listagem de regi
 
 ## Estrutura do Repositório
 * `main.c`: Contém a função `main`, o loop principal do programa, a interface de menu para o usuário e a coordenação das chamadas às funcionalidades do sistema.
-* `bd_paciente.h`: Arquivo de cabeçalho para o Tipo Abstrato de Dados (TAD) `BDPaciente`. Define a estrutura `Paciente` (representando os dados de um paciente) e a estrutura `BDPaciente` (gerenciador do banco de dados de pacientes), bem como os protótipos das funções que manipulam esses dados.
+* `bd_paciente.h`: Arquivo de cabeçalho para o Tipo Abstrato de Dados `BDPaciente`. Define a estrutura `Paciente` (representando os dados de um paciente) e a estrutura `BDPaciente` (gerenciador do banco de dados de pacientes), bem como os protótipos das funções que manipulam ambos os dados.
 * `bd_paciente.c`: Arquivo de implementação do TAD `BDPaciente`. Contém a lógica para carregar pacientes do arquivo CSV, consultar pacientes por nome ou CPF e listar todos os pacientes cadastrados.
-* `Makefile`: Arquivo de configuração para o utilitário `make`, que automatiza o processo de compilação do projeto.
+* `Makefile`: Arquivo de configuração para o utilitário `make`, que automatiza o processo de compilação do projeto no ambiente Linux.
 * `bd_paciente.csv`: Arquivo texto no formato CSV que armazena os dados dos pacientes. O sistema carrega os dados deste arquivo ao ser iniciado.
 
 ## Principais TADs Utilizados
 ### 1. `struct Paciente`
-Representa as informações de um único paciente. Campos:
-* `int id`: Identificador único do paciente.
-* `char cpf[15]`: CPF do paciente (formato XXX.XXX.XXX-XX).
-* `char nome[100]`: Nome completo do paciente.
+Representa as informações de um único paciente.
+Campos:
+* `int id`: Número de identificador único do paciente.
+* `char cpf[15]`: CPF do paciente (no formato XXX.XXX.XXX-XX).
+* `char nome[100]`: Nome completo do paciente, com limite de caracteres igual a 100 - contando o caracter nulo.
 * `int idade`: Idade do paciente em anos.
-* `char data_cadastro[11]`: Data de cadastro do paciente no sistema (formato AAAA-MM-DD).
+* `char data_cadastro[11]`: Data de cadastro do paciente no sistema (no formato AAAA-MM-DD).
 
 ### 2. `TAD BDPaciente`
 Abstração para o armazenamento e manipulação dos dados dos pacientes.
 * **Propósito**: Encapsular a lógica de acesso e gerenciamento da coleção de registros de pacientes, provendo uma interface clara para o restante do sistema.
 * **Estrutura Interna**:
-    * `Paciente pacientes[MAX_PACIENTES]`: Um vetor estático que armazena os registros dos pacientes. `MAX_PACIENTES` é uma constante pré-definida.
+    * `Paciente pacientes[MAX_PACIENTES]`: Um vetor estático que armazena os registros dos pacientes. `MAX_PACIENTES` é uma constante pré-definida em `bd_paciente.h`.
     * `int quantidade_atual`: Contador que armazena o número de pacientes atualmente carregados no vetor.
 * **Principais Funções**:
     * `BDPaciente* criar_bdpaciente()`: Aloca dinamicamente e inicializa a estrutura `BDPaciente`.
     * `int carregar_bd_do_csv(BDPaciente* bd, const char* nome_arquivo)`: Carrega os dados dos pacientes do arquivo `bd_paciente.csv` para o vetor em memória.
-    * `void consultar_paciente(const BDPaciente* bd)`: Permite buscar pacientes por prefixo do nome ou CPF e exibe os resultados.
+    * `void consultar_paciente(const BDPaciente* bd)`: Permite buscar pacientes por prefixo do nome - comparando strings - ou CPF e exibe os resultados.
     * `void imprimir_lista_pacientes(const BDPaciente* bd)`: Exibe todos os registros de pacientes armazenados, com paginação para facilitar a visualização.
     * `void liberar_bdpaciente(BDPaciente* bd)`: Libera a memória alocada para a estrutura `BDPaciente`.
 
 ## Principais Decisões de Implementação
-* **Armazenamento de Dados (Parte I)**: Foi utilizado um vetor estático para armazenar os registros dos pacientes em memória. A capacidade máxima é definida pela constante `MAX_PACIENTES`.
+* **Armazenamento de Dados (Parte I)**: Foi utilizado um vetor estático para armazenar os registros dos pacientes em memória. A capacidade máxima é definida pela constante `MAX_PACIENTES` em `bd_paciente.h`.
 
 * **Alocação Dinâmica**: A estrutura `BDPaciente`, que gerencia o vetor estático e outras informações do "banco de dados", é alocada dinamicamente.
 
