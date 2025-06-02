@@ -9,10 +9,9 @@
 // Funções Auxiliares (Helpers)
 
 // Limpa o buffer de entrada do teclado
-
 void limpar_buffer_entrada() {
     int c;
-    // Lê e descarta caracteres do buffer de entrada até encontrar uma nova linha ou o fim do arquivo.
+    // Lê e descarta caracteres do buffer de entrada até encontrar uma nova linha ou o fim do arquivo
     while ((c = getchar()) != '\n' && c != EOF);
 }
 
@@ -20,10 +19,10 @@ void limpar_buffer_entrada() {
 static void imprimir_cabecalho_paciente() {
     // %-Xs: string, ocupando X caracteres.
     printf("%-5s %-15s %-30s %-5s %-15s\n", "ID", "CPF", "Nome", "Idade", "Data_Cadastro");
-    printf("-------------------------------------------------------------------------------\n"); // Linha separadora.
+    printf("-------------------------------------------------------------------------------\n");
 }
-//Imprime os dados de um único paciente, com a formatação certa
 
+//Imprime os dados de um único paciente, com a formatação certa
 static void imprimir_dados_paciente(const Paciente* p) {
     printf("%-5d %-15s %-30s %-5d %-15s\n",
            p->id, p->cpf, p->nome, p->idade, p->data_cadastro);
@@ -41,14 +40,12 @@ BDPaciente* criar_bdpaciente() {
 }
 
 // Libera a memória alocada p uma estrutura BDPaciente
-
 void liberar_bdpaciente(BDPaciente* bd) {
     // Libera a memória apontada por 'bd'
     free(bd);
 }
 
 // Carrega dados de pacientes de um arquivo CSV p a estrutura BDPaciente
-
 int carregar_bd_do_csv(BDPaciente* bd, const char* nome_arquivo) {
     if (bd == NULL) {
         fprintf(stderr, "Erro: Estrutura BDPaciente não inicializada (NULL).\n");
@@ -181,7 +178,7 @@ void consultar_paciente(const BDPaciente* bd) {
     }
 }
 
-// Imprime a lista de todos os pacientes, com paginação.
+// Imprime a lista de todos os pacientes
 void imprimir_lista_pacientes(const BDPaciente* bd) {
     if (bd == NULL) {
         fprintf(stderr, "Erro: Banco de dados de pacientes nao inicializado para impressão.\n");
@@ -221,6 +218,6 @@ void imprimir_lista_pacientes(const BDPaciente* bd) {
             }
         }
     }
-    printf("-------------------------------------------------------------------------------\n"); // Linha separadora final.
+    printf("-------------------------------------------------------------------------------\n");
     printf("Fim da lista de pacientes.\n");
 }
