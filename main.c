@@ -21,14 +21,14 @@ void exibir_menu() {
 
 // Função principal do programa
 int main() {
-    // Tenta criar (alocar e inicializar) a estrutura do banco de dados de pacientes, verificando se a mesma foi bem sucedida
+    // Tenta criar (alocar e inicializar) a estrutura do banco de dados de pacientes, verificando se foi bem sucedida
     BDPaciente* bd = criar_bdpaciente();
     if (bd == NULL) {
         fprintf(stderr, "Erro crítico: Falha ao alocar memória para o banco de dados.\n");
         return EXIT_FAILURE; // Termina o programa com código de erro se falhar
     }
 
-    // Tenta carregar os dados dos pacientes do arquivo "bd_paciente.csv" ao iniciar o sistema[cite: 13]
+    // Tenta carregar os dados dos pacientes do arquivo "bd_paciente.csv" ao iniciar o sistema
     if (carregar_bd_do_csv(bd, "bd_paciente.csv") != 0) {
         // Se carregar_bd_do_csv retornar um valor diferente de 0, exibe a mensagem abaixo
         fprintf(stderr, "Aviso: Não foi possível carregar todos os dados de 'bd_paciente.csv'.\n");
@@ -49,8 +49,7 @@ int main() {
         if (strlen(opcao_str) > 0 && opcao_str[strlen(opcao_str) - 1] == '\n') {
             opcao_str[strlen(opcao_str) - 1] = '\0';
         } else {
-            // Se a string não termina com '\n' e seu tamanho é o máximo do buffer menos 1, significa que a entrada do usuário foi maior que o buffer
-            // Nesse caso, é preciso limpar o restante do buffer de entrada
+            // Se a string não termina com '\n' e seu tamanho é o máximo do buffer menos 1, significa que a entrada do usuário foi maior que o buffer, nesse caso, é preciso limpar o restante do buffer de entrada
             if (strlen(opcao_str) == sizeof(opcao_str) - 1) {
                  limpar_buffer_entrada_main();
             }
@@ -83,5 +82,5 @@ int main() {
 
     // Libera a memória do banco de dados caso o loop principal seja interrompido por um 'break' (o que só tem chance de ocorrer uma vez nesse programa - por enquanto)
     liberar_bdpaciente(bd);
-    return EXIT_SUCCESS;
+    return EXIT_SUCCESS; // Só correr pro abraço
 }
