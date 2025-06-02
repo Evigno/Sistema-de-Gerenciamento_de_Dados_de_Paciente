@@ -5,7 +5,9 @@ A execução deste trabalho consiste na implementação - de preferência com su
 Nesta primeita parte, focamos nas funcionalidades de consulta e listagem de registros dos pacientes, os quais os dados são persistidos em um arquivo texto CSV e carregados em um vetor estático em meória para a execução do sistema.
 
 **Disciplina:** Estrutura de Dados
+
 **Professor:** Thiago M. Paixão
+
 **Alunos:** Maria Eduarda Vitorino Eler, Lucas Silverio Gums
 
 ## Como Compilar e Executar
